@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CashBox.API/CashBox.API.csproj" />
+  <Project Path="CashBox.Core/CashBox.Core.csproj" />
+  <Project Path="CashBox.Data/CashBox.Data.csproj" />
+  <Project Path="CashBox.Service/CashBox.Service.csproj" />
+</Solution>
