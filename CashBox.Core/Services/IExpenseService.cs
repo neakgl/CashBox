@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CashBox.Core.Entities;
 
-namespace CashBox.Core.Services
+namespace CashBox.Core.Services;
+
+public interface IExpenseService : IGenericService<Expense>
 {
-    internal class IExpenseService
-    {
-    }
+   
 }

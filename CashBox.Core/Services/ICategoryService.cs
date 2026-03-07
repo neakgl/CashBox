@@ -2,7 +2,7 @@
 
 namespace CashBox.Core.Services;
 
-public interface IExpenseService : IGenericService<Expense>
+public interface ICategoryService : IGenericService<Category>
 {
-
+    
 }
