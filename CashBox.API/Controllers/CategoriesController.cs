@@ -1,6 +1,8 @@
-﻿using CashBox.Core.Entities;
+﻿using CashBox.Core.DTOs.CategoryDTOs;
 using CashBox.Core.Services;
 using Microsoft.AspNetCore.Mvc;
+
+namespace CashBox.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -13,26 +15,25 @@ public class CategoriesController : ControllerBase
         _categoryService = categoryService;
     }
 
-    [HttpPost("getAllCategory")]
+    [HttpPost("getAllCategories")]
     public async Task<IActionResult> GetAll()
     {
-        var categories = await _categoryService.GetAllAsync();
-        return Ok(categories);
+        var result = await _categoryService.GetAllWithDtoAsync();
+        return Ok(result);
     }
 
     [HttpPost("createCategory")]
-    public async Task<IActionResult> Create(Category category)
+    public async Task<IActionResult> Create(CategoryCreateDto categoryDto)
     {
-        await _categoryService.AddAsync(category);
-
-        return Ok(category);
+        var result = await _categoryService.AddWithDtoAsync(categoryDto);
+        return Ok(result);
     }
 
     [HttpPost("updateCategory")]
-    public async Task<IActionResult> Update(Category category)
+    public async Task<IActionResult> Update(CategoryUpdateDto updateDto)
     {
-        _categoryService.Update(category);
-        return Ok("Kategori güncellendi.");
+        await _categoryService.UpdateWithDtoAsync(updateDto);
+        return Ok("Kategori başarıyla güncellendi.");
     }
 
     [HttpPost("removeCategory")]

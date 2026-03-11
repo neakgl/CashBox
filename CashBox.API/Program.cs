@@ -3,10 +3,13 @@ using CashBox.Core.Services;
 using CashBox.Core.UnitOfWorks;
 using CashBox.Data.Repositories;
 using CashBox.Data.UnitOfWorks;
+using CashBox.Service.Mapping;
 using CashBox.Service.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MapProfile>());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
