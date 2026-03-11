@@ -1,6 +1,8 @@
-﻿using CashBox.Core.Entities;
+﻿using CashBox.Core.DTOs.ExpenseDTOs;
 using CashBox.Core.Services;
 using Microsoft.AspNetCore.Mvc;
+
+namespace CashBox.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -13,25 +15,25 @@ public class ExpensesController : ControllerBase
         _expenseService = expenseService;
     }
 
-    [HttpPost("getAllExpense")]
+    [HttpPost("getAllExpenses")]
     public async Task<IActionResult> GetAll()
     {
-        var expenses = await _expenseService.GetAllAsync();
-        return Ok(expenses);
+        var result = await _expenseService.GetAllWithDtoAsync();
+        return Ok(result);
     }
 
     [HttpPost("createExpense")]
-    public async Task<IActionResult> Create(Expense expense)
+    public async Task<IActionResult> Create(ExpenseCreateDto expenseDto)
     {
-        await _expenseService.AddAsync(expense);
-        return Ok(expense);
+        var result = await _expenseService.AddWithDtoAsync(expenseDto);
+        return Ok(result);
     }
 
     [HttpPost("updateExpense")]
-    public async Task<IActionResult> Update(Expense expense)
+    public async Task<IActionResult> Update(ExpenseUpdateDto updateDto)
     {
-        _expenseService.Update(expense);
-        return Ok("Harcama güncellendi.");
+        await _expenseService.UpdateWithDtoAsync(updateDto);
+        return Ok("Harcama başarıyla güncellendi.");
     }
 
     [HttpPost("removeExpense")]
@@ -40,7 +42,7 @@ public class ExpensesController : ControllerBase
         var expense = await _expenseService.GetByIdAsync(id);
         if (expense == null) return NotFound("Harcama bulunamadı.");
 
-         _expenseService.Remove(expense);
+        _expenseService.Remove(expense);
         return Ok("Harcama silindi.");
     }
 }
