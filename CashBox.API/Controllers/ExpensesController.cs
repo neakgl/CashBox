@@ -18,7 +18,7 @@ public class ExpensesController : ControllerBase
     [HttpPost("getAllExpenses")]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _expenseService.GetAllWithDtoAsync();
+        var result = await _expenseService.GetExpensesWithCategoryDtoAsync();
         return Ok(result);
     }
 

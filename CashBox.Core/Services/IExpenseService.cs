@@ -8,4 +8,5 @@ public interface IExpenseService : IGenericService<Expense>
     Task<ExpenseDto> AddWithDtoAsync(ExpenseCreateDto dto);
     Task<IEnumerable<ExpenseDto>> GetAllWithDtoAsync();
     Task UpdateWithDtoAsync(ExpenseUpdateDto dto);
+    Task<IEnumerable<ExpenseDto>> GetExpensesWithCategoryDtoAsync();
 }
