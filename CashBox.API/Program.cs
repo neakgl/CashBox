@@ -5,6 +5,9 @@ using CashBox.Data.Repositories;
 using CashBox.Data.UnitOfWorks;
 using CashBox.Service.Mapping;
 using CashBox.Service.Services;
+using CashBox.Service.Validations;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +31,10 @@ builder.Services.AddDbContext<CashBox.Data.Context.AppDbContext>(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<ExpenseCreateDtoValidator>();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 //builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
