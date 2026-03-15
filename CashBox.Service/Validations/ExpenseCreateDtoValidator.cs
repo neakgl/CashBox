@@ -17,5 +17,7 @@ public class ExpenseCreateDtoValidator : AbstractValidator<ExpenseCreateDto>
 
         RuleFor(x => x.CategoryId)
             .GreaterThan(0).WithMessage("Geçerli bir kategori seçilmelidir.");
+
+        RuleFor(x => x.UserId).GreaterThan(0).WithMessage("Geçerli bir kullanıcı seçilmelidir!");
     }
 }

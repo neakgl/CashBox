@@ -11,6 +11,9 @@ public class ExpenseRepository : GenericRepository<Expense>, IExpenseRepository
     }
     public async Task<List<Expense>> GetExpensesWithCategoryAsync()
     {
-        return await _context.Expenses.Include(x => x.Category).ToListAsync();
+        return await _context.Expenses
+            .Include(x => x.Category)
+            .Include(x => x.User)
+            .ToListAsync();
     }
 }
