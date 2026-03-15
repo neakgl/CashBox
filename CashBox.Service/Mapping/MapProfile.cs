@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CashBox.Core.DTOs.CategoryDTOs;
 using CashBox.Core.DTOs.ExpenseDTOs;
+using CashBox.Core.DTOs.UserDTOs;
 using CashBox.Core.Entities;
 
 namespace CashBox.Service.Mapping;
@@ -17,5 +18,10 @@ public class MapProfile : Profile
         CreateMap<Expense, ExpenseDto>().ReverseMap();
         CreateMap<ExpenseCreateDto, Expense>().ReverseMap();
         CreateMap<ExpenseUpdateDto, Expense>().ReverseMap();
+
+        //user
+        CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<UserCreateDto, User>();
+        CreateMap<UserUpdateDto, User>();
     }
 }
