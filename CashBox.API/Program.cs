@@ -37,6 +37,7 @@ builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
 
 builder.Services.AddSwaggerGen(c =>
 {
