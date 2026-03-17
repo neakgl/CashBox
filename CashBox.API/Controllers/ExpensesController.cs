@@ -1,4 +1,5 @@
-﻿using CashBox.Core.DTOs.ExpenseDTOs;
+﻿using CashBox.API.Extensions;
+using CashBox.Core.DTOs.ExpenseDTOs;
 using CashBox.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +21,14 @@ public class ExpensesController : ControllerBase
     [HttpPost("getAllExpenses")]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _expenseService.GetExpensesWithCategoryDtoAsync();
+        var result = await _expenseService.GetExpensesWithCategoryDtoAsync(User.GetUserId());
         return Ok(result);
     }
 
     [HttpPost("createExpense")]
     public async Task<IActionResult> Create(ExpenseCreateDto expenseDto)
     {
-        var result = await _expenseService.AddWithDtoAsync(expenseDto);
+        var result = await _expenseService.AddWithDtoAsync(expenseDto, User.GetUserId());
         return Ok(result);
     }
 

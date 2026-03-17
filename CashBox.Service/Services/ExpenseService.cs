@@ -19,9 +19,10 @@ public class ExpenseService : GenericService<Expense>, IExpenseService
         _mapper = mapper;
     }
 
-    public async Task<ExpenseDto> AddWithDtoAsync(ExpenseCreateDto dto)
+    public async Task<ExpenseDto> AddWithDtoAsync(ExpenseCreateDto dto, int userId)
     {
         var expense = _mapper.Map<Expense>(dto);
+        expense.UserId = userId;
         expense.Date = dto.Date ?? DateTime.Now;
         await AddAsync(expense);
         return _mapper.Map<ExpenseDto>(expense);
@@ -42,11 +43,12 @@ public class ExpenseService : GenericService<Expense>, IExpenseService
             Update(expense);
         }
     }
-    public async Task<IEnumerable<ExpenseDto>> GetExpensesWithCategoryDtoAsync()
+    public async Task<IEnumerable<ExpenseDto>> GetExpensesWithCategoryDtoAsync(int userId)
     {
         var expenses = await _expenseRepository.GetExpensesWithCategoryAsync();
+        var userExpenses = expenses.Where(x => x.UserId == userId).ToList();
 
         // AutoMapper CategoryName durumunu kendisi çözüyor.
-        return _mapper.Map<IEnumerable<ExpenseDto>>(expenses);
+        return _mapper.Map<IEnumerable<ExpenseDto>>(userExpenses);
     }
 }
