@@ -8,4 +8,5 @@ public interface IUserService : IGenericService<User>
     Task<UserDto> AddWithDtoAsync(UserCreateDto dto);
     Task<IEnumerable<UserDto>> GetAllWithDtoAsync();
     Task UpdateWithDtoAsync(UserUpdateDto dto);
+    Task<TokenDto> LoginAsync(UserLoginDto loginDto);
 }

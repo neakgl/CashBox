@@ -12,12 +12,13 @@ public class UserService : GenericService<User>, IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-
-    public UserService(IGenericRepository<User> repository, IUnitOfWork unitOfWork, IUserRepository userRepository, IMapper mapper)
+    private readonly ITokenService _tokenService;
+    public UserService(IGenericRepository<User> repository, IUnitOfWork unitOfWork, IUserRepository userRepository, IMapper mapper, ITokenService tokenService)
         : base(repository, unitOfWork)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _tokenService = tokenService;
     }
 
     public async Task<UserDto> AddWithDtoAsync(UserCreateDto dto)
@@ -44,4 +45,22 @@ public class UserService : GenericService<User>, IUserService
             Update(user);
         }
     }
+    public async Task<TokenDto> LoginAsync(UserLoginDto loginDto)
+    {
+        var user = await _userRepository.GetByEmailAsync(loginDto.Email);
+        if (user == null)
+        {
+            throw new Exception("E-posta veya şifre hatalı!");
+        }
+
+        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash);
+
+        if (!isPasswordValid)
+        {
+            throw new Exception("E-posta veya şifre hatalı!");
+        }
+
+        return _tokenService.CreateToken(user);
+    }
+
 }

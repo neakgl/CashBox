@@ -1,9 +1,11 @@
 ﻿using CashBox.Core.DTOs.CategoryDTOs;
 using CashBox.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashBox.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class CategoriesController : ControllerBase

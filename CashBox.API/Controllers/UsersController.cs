@@ -45,4 +45,11 @@ public class UserController : ControllerBase
         _userService.Remove(user);
         return Ok("Kullanıcı silindi.");
     }
+    [HttpPost("loginUser")]
+    public async Task<IActionResult> Login(UserLoginDto loginDto)
+    {
+        var result = await _userService.LoginAsync(loginDto);
+
+        return Ok(result);
+    }
 }
