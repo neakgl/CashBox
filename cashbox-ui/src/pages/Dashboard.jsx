@@ -119,9 +119,14 @@ function Dashboard() {
       {}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
         <h2 style={{ color: '#2c3e50', margin: 0 }}>CashBox - Cüzdan Özeti 💰</h2>
-        <button onClick={handleLogout} style={{ backgroundColor: '#dc3545', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
-          Çıkış Yap
-        </button>
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <button onClick={() => navigate('/history')} style={{ backgroundColor: '#007bff', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            📜 İşlem Geçmişi
+          </button>
+          <button onClick={handleLogout} style={{ backgroundColor: '#dc3545', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            Çıkış Yap
+          </button>
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
