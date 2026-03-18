@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using CashBox.Core.DTOs.ResponseDTOs; // Standart paketimizi içeri aldık!
 
 namespace CashBox.API.Middlewares;
 
@@ -21,25 +22,16 @@ public class ExceptionHandlerMiddleware
         {
             context.Response.ContentType = "application/json";
 
-            // Hataya göre Status Code ve Mesaj belirleme
-            var (statusCode, message) = error switch
+            var statusCode = error switch
             {
-                KeyNotFoundException => (404, "İstenen kayıt bulunamadı."),
-
-                ArgumentException or InvalidOperationException => (400, "Geçersiz işlem veya eksik parametre gönderildi."),
-
-                _ => (500, "Sistemde beklenmedik bir hata oluştu.")
+                KeyNotFoundException => 404,
+                ArgumentException or InvalidOperationException => 400,
+                _ => 500
             };
 
             context.Response.StatusCode = statusCode;
 
-            // Yanıt Paketini Hazırlama
-            var response = new
-            {
-                StatusCode = statusCode,
-                Message = message,
-                DetailedError = error.Message // Projeyi canlıya alırken güvenlik için bu gizlenmeli
-            };
+            var response = CustomResponseDto<object>.Fail(statusCode, error.Message);
 
             var json = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(json);
