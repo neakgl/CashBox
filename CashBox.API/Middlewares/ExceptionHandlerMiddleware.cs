@@ -30,7 +30,6 @@ public class ExceptionHandlerMiddleware
             };
 
             context.Response.StatusCode = statusCode;
-
             var response = CustomResponseDto<object>.Fail(statusCode, error.Message);
 
             var json = JsonSerializer.Serialize(response);
