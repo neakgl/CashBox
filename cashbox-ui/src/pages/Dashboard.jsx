@@ -61,6 +61,7 @@ function Dashboard() {
     };
     loadAllData();
   }, [fetchWalletData, fetchCategories]);
+  
 
 
   const handleAddTransaction = async (e) => {
@@ -120,6 +121,9 @@ function Dashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
         <h2 style={{ color: '#2c3e50', margin: 0 }}>CashBox - Cüzdan Özeti 💰</h2>
         <div style={{ display: 'flex', gap: '15px' }}>
+          <button onClick={() => navigate('/admin')} style={{ backgroundColor: '#2c3e50', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            ⚙️ Admin
+          </button>
           <button onClick={() => navigate('/history')} style={{ backgroundColor: '#007bff', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
             📜 İşlem Geçmişi
           </button>
