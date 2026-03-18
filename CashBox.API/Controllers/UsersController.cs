@@ -1,5 +1,6 @@
 ﻿using CashBox.Core.DTOs.UserDTOs;
 using CashBox.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashBox.API.Controllers;
@@ -15,6 +16,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("getAllUsers")]
     public async Task<IActionResult> GetAll()
     {
@@ -29,6 +31,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPost("updateUser")]
     public async Task<IActionResult> Update(UserUpdateDto updateDto)
     {
@@ -36,6 +39,7 @@ public class UserController : ControllerBase
         return Ok("Kullanıcı başarıyla güncellendi.");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("removeUser")]
     public async Task<IActionResult> Remove(int id)
     {
