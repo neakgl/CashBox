@@ -20,13 +20,25 @@ public class ExceptionHandlerMiddleware
         catch (Exception error)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = 500; // 500 Internal Server Error
 
+            // Hataya göre Status Code ve Mesaj belirleme
+            var (statusCode, message) = error switch
+            {
+                KeyNotFoundException => (404, "İstenen kayıt bulunamadı."),
+
+                ArgumentException or InvalidOperationException => (400, "Geçersiz işlem veya eksik parametre gönderildi."),
+
+                _ => (500, "Sistemde beklenmedik bir hata oluştu.")
+            };
+
+            context.Response.StatusCode = statusCode;
+
+            // Yanıt Paketini Hazırlama
             var response = new
             {
-                StatusCode = context.Response.StatusCode,
-                Message = "Sistemde beklenmedik bir hata oluştu.",
-                DetailedError = error.Message
+                StatusCode = statusCode,
+                Message = message,
+                DetailedError = error.Message // Projeyi canlıya alırken güvenlik için bu gizlenmeli
             };
 
             var json = JsonSerializer.Serialize(response);
