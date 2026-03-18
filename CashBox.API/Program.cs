@@ -41,7 +41,6 @@ builder.Services.AddScoped<IWalletService, WalletService>();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    // 1. Güvenlik Tanýmý (Burasý ayný kalýyor)
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "token metnini buraya yapýþtýrýn",
@@ -52,7 +51,6 @@ builder.Services.AddSwaggerGen(c =>
         BearerFormat = "JWT"
     });
 
-    // 2. Güvenlik Gereksinimi (ÝÞTE YENÝ .NET 10 YAPISI BURASI!)
     c.AddSecurityRequirement(document => new OpenApiSecurityRequirement()
     {
         {
@@ -75,10 +73,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true, // Bileti basan biz miyiz?
-            ValidateAudience = true, // Bilet bizim sistemimiz için mi basýlmýþ?
-            ValidateLifetime = true, // Biletin süresi dolmuþ mu?
-            ValidateIssuerSigningKey = true, // Ýmza (Secret Key) doðru mu?
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true, 
+            ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
             ValidAudience = builder.Configuration["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
